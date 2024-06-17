@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @moimeer
+- 👋 Hi, I’m @moymeer
 - 👀 I’m interested in java
 - 🌱 I’m currently learning java
 - 💞️ I’m looking to collaborate on java
