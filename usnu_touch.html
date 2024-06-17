@@ -42,8 +42,8 @@
     canvas.addEventListener('mousedown', dragFn);
     canvas.addEventListener('mousemove', drag);
     canvas.addEventListener('mouseup',   endFn);
-canvas.addEventListener('touchstart', dragFn, false);
-canvas.addEventListener('touchmove',  drag,   false);
+canvas.addEventListener('touchstart', dragFn,    false);
+canvas.addEventListener('touchmove',  dragTouch, false);
 
     let size; // font size
     window.onload   = resize;
@@ -199,6 +199,21 @@ canvas.addEventListener('touchmove',  drag,   false);
       }
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
+      displayParameters();
+    }
+
+    function dragTouch(e) {
+      if(!temp) return;
+      if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
+        const rect = canvas.getBoundingClientRect();
+        pointer            = Math.floor(parameter.length * (e.clientY - rect.top) / canvas.height);
+        parameter[pointer] = ((e.clientX - rect.left) / canvas.width);
+        if(pointer == timerPointer) timerChange = true;
+        paramCalc();
+      }
+      now      = new Date();
+      infoTime = menuTime + now.getTime(); // [ms]
+      temp = false;
       displayParameters();
     }
 
