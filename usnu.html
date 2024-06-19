@@ -40,7 +40,7 @@
     let colorGreen;
     let Hue;
     let periodBase = 500; // [ms]
-    let period;            // [Hz]
+    let period;           // [Hz]
 
     let now         = new Date();
     let currentTime = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
@@ -60,7 +60,7 @@
     window.onresize = resize;
     function resize() { // set canvas size and font size
       canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight-3;
+      canvas.height = window.innerHeight-4;
 
       let maxSize   = Math.floor(canvas.height/(2*parameter.length)); // as double lines of text than parameters
       if(maxSize > 999) maxSize = 999;
