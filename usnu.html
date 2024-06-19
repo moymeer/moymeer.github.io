@@ -115,7 +115,7 @@
           screenLock.release();
         } else {
           // ******************** screen lock **********************
-          navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
+          screenLock = navigator.wakeLock.request('screen');
         }
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
