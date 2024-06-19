@@ -111,11 +111,10 @@
         }
         if(value[timerPointer] <= 0) {
           fade = 0;
-          // ******************** screen unlock ********************
-          if(typeof screenLock !== "undeinfed" && screenLock != null) { screenLock.release().then(() => {screenLock = null;});}
+          // ******************** screen unlock ********************  
+          screenLock.onrelease=true;
         } else {
           // ******************** screen lock **********************
-          screenLock; // screen lock
           navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
         }
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
