@@ -49,6 +49,7 @@
     let fadeTime    = 60000; // [ms] fade time before flashing ends
     let lastTime    = currentTime;
     let timerChange = true;
+    let screenLock;
 
     canvas.addEventListener('onkeydown', press);
     canvas.addEventListener('mousedown', dragFn);
@@ -126,8 +127,7 @@
         if(value[timerPointer] <= 0) {
           fade = 0;
           // ******************** screen unlock ********************
-          if(wakelock) wakelock.release();
-          wakelock = null;
+          if(typeof screenLock !== "undeinfed" && screenLock != null) { screenLock.release().then(() => {screenLock = null;});
         }
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
