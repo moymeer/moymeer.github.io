@@ -75,8 +75,6 @@
           minSize = size;
         }
       }while(maxSize - minSize > 1);
-      // ******************** screen lock ********************
-      navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
     }
 
     paramCalc();
@@ -115,6 +113,10 @@
           fade = 0;
           // ******************** screen unlock ********************
           if(typeof screenLock !== "undeinfed" && screenLock != null) { screenLock.release().then(() => {screenLock = null;});}
+        } else {
+          // ******************** screen lock **********************
+          screenLock; // screen lock
+          navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
         }
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
