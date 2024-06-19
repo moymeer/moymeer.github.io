@@ -3,9 +3,16 @@
 <head>
 <meta charset="utf-8">
     <title>usnu</title>
+    <style>
+      body {
+        background-color: #000000;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+      }
+    </style>
 </head>
 
-<body bgcolor = "#000000">
+<body>
   <canvas id="canvas"></canvas>
   <script type="text/javascript"><!--
     let canvas    = document.getElementById("canvas");
@@ -47,8 +54,8 @@
     window.onload   = resize;
     window.onresize = resize;
     function resize() { // set canvas size and font size
-      canvas.width  = window.innerWidth -24;
-      canvas.height = window.innerHeight-24;
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
 
       let maxSize   = Math.floor(canvas.height/(2*parameter.length)); // as double lines of text than parameters
       if(maxSize > 999) maxSize = 999;
