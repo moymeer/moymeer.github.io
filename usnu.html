@@ -79,19 +79,6 @@
       navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
     }
 
-    let wakelock;
-    async function lockWakeState() {
-      if(!canWakeLock()) return;
-      try {
-        wakelock = await navigator.wakeLock.request();
-        wakelock.addEventListener('release', () => {
-        console.log('Screen Wake State Locked:', !wakelock.released);
-        });
-        console.log('Screen Wake State Locked:', !wakelock.released);
-      } catch(e) {
-        console.error('Failed to lock wake state with reason:', e.message);
-      }
-    }
     paramCalc();
     displayParameters();
     setInterval(flashing, 10); // repeatedly calls a function with a fixed time delay [ms] between each call
