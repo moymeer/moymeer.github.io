@@ -37,6 +37,7 @@
     let fadeTime    = 60000; // [ms] fade time before flashing ends
     let lastTime    = currentTime;
     let timerChange = true;
+    let screenLock; // screen lock
 
     canvas.addEventListener('onkeydown', press);
     canvas.addEventListener('mousedown', dragFn);
@@ -102,7 +103,6 @@
           }
         } else {
           // ******************** screen lock ********************
-          let screenLock; // screen lock
           navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
         }
 
