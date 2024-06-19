@@ -59,8 +59,8 @@
     window.onload   = resize;
     window.onresize = resize;
     function resize() { // set canvas size and font size
-      canvas.width  = window.innerWidth-8;
-      canvas.height = window.innerHeight-8;
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight-20;
 
       let maxSize   = Math.floor(canvas.height/(2*parameter.length)); // as double lines of text than parameters
       if(maxSize > 999) maxSize = 999;
