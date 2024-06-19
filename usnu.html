@@ -112,8 +112,7 @@
         if(value[timerPointer] <= 0) {
           fade = 0;
           // ******************** screen unlock ********************  
-          screenLock.onrelease();
-          screenLock = null;
+          screenLock.release();
         } else {
           // ******************** screen lock **********************
           navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
