@@ -17,12 +17,12 @@
     let colorPointer   = 2;
     let freqPointer    = 3;
     let timerPointer   = 4;
-    let parameter      = [3/6,          2/6,    4/10,  11/36,        0/6];
+    let parameter      = [3/6,          2/6,    4/10,  11/36,        0/30];
     let value          = [];
     let valueString    = [];
     let value_max      = [255,           80,     255,     36, 30*60*1000];
     let value_min      = [ 63,           20,       0,      0,          0];
-    let levels         = [  6,            6,      10,     36,          6];
+    let levels         = [  6,            6,      10,     36,         30];
     let pointer        = parameter.length-1;
     let colorRed;
     let colorGreen;
@@ -98,9 +98,7 @@
         if(value[timerPointer] <= 0) {
           fade = 0;
           // ******************** screen unlock ********************
-          if(typeof screenLock !== "undeinfed" && screenLock != null) {
-            screenLock.release().then(() => {screenLock = null;});
-          }
+          wakeLock.release().then(() => wakeLock = null);
         } else {
           // ******************** screen lock ********************
           navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
