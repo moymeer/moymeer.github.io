@@ -63,6 +63,8 @@
           minSize = size;
         }
       }while(maxSize - minSize > 1);
+      // ******************** screen lock ********************
+      navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
     }
 
     paramCalc();
@@ -99,12 +101,7 @@
           fade = 0;
           // ******************** screen unlock ********************
           wakeLock.release().then(() => wakeLock = null);
-        } else {
-          // ******************** screen lock ********************
-          navigator.wakeLock.request('screen').then(lock => {screenLock = lock;});
         }
-
-
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         value[timerPointer]     = value[timerPointer] - (currentTime - lastTime);
