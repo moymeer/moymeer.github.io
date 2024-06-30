@@ -209,7 +209,7 @@
       if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
         const rect = canvas.getBoundingClientRect();
         // pointer            = Math.floor(parameter.length * (e.clientY - rect.top) / canvas.height);
-        parameter[pointer] = ((e.type.includes("mouse") ? e.clientX : (canvas.width*parameter[pointer]+e.touches[0].clientX-orgPos)) - rect.left) / canvas.width);
+        parameter[pointer] = ((e.type.includes("mouse") ? e.clientX : (canvas.width*parameter[pointer]+e.touches[0].clientX-orgPos)) - rect.left) / canvas.width;
         if(pointer == timerPointer) timerChange = true;
         paramCalc();
       }
