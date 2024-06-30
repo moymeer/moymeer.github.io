@@ -207,8 +207,8 @@
 
     let temp = false;
     function dragFn(e) {
-      temp = true;
       if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
+        temp = true;
         const rect = canvas.getBoundingClientRect();
         pointer    = Math.floor(parameter.length * ((e.type.includes("mouse") ? e.pageY : e.touches[0].clientY) - rect.top) / canvas.height);
         parameter[pointer] = ((e.type.includes("mouse") ? e.pageX : e.touches[0].clientX) - rect.left) / canvas.width;
@@ -218,6 +218,7 @@
       } else {
         e.preventDefault();
         e.stopPropagation();
+        temp = false;
       }
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
