@@ -216,8 +216,8 @@
         if(pointer == timerPointer) timerChange = true;
         paramCalc();
       } else {
-        e.stopPropagation();
         e.preventDefault();
+        e.stopPropagation();
       }
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
@@ -235,8 +235,8 @@
         if(pointer == timerPointer) timerChange = true;
         paramCalc();
       } else {
-        e.stopPropagation();
         e.preventDefault();
+        e.stopPropagation();
       }      
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
