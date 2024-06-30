@@ -36,6 +36,7 @@
     let value_min      = [ 63,           20,       0,      0,          0];
     let levels         = [  6,            6,      10,     36,         30];
     let pointer        = parameter.length-1;
+    let origPos;
     let colorRed;
     let colorGreen;
     let Hue;
@@ -51,12 +52,14 @@
     let timerChange = true;
 
     canvas.addEventListener('onkeydown', press);
+      
     canvas.addEventListener('mousedown', dragFn);
     canvas.addEventListener('mousemove', drag);
     canvas.addEventListener('mouseup',   endFn);
+      
     canvas.addEventListener('touchstart', dragFn);
-    canvas.addEventListener('touchend',   endFn);
     canvas.addEventListener('touchmove',  drag);
+    canvas.addEventListener('touchend',   endFn);
 
     let size; // font size
     window.onload   = resize;
