@@ -76,7 +76,7 @@
       do {
         size = Math.floor((maxSize + minSize)/2);
         ctx.font = ""+size+"px Arial";
-        if(ctx.measureText("0puls 60/min. = 1.00 Hz = 1/1.00 s0").width >= canvas.width){
+        if(ctx.measureText("0puls 60/min = 1.00 Hz = 1/1.00 s0").width >= canvas.width){
           maxSize = size;
         }else{
           minSize = size;
