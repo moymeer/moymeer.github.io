@@ -217,6 +217,7 @@
         paramCalc();
       } else {
         e.stopPropagation();
+        e.preventDefault();
       }
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
@@ -235,6 +236,7 @@
         paramCalc();
       } else {
         e.stopPropagation();
+        e.preventDefault();
       }      
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
