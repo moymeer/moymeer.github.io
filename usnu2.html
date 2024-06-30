@@ -197,7 +197,7 @@
       temp = true;
       const rect = canvas.getBoundingClientRect();
       pointer    = Math.floor(parameter.length * (e.clientY - rect.top) / canvas.height);
-      origPos    = (e.clientX - rect.left) / canvas.width;
+      origPos    = (e.clientX - rect.left) / canvas.width);
       drag(e);
     }
 
@@ -206,7 +206,7 @@
       if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
         const rect = canvas.getBoundingClientRect();
         // pointer            = Math.floor(parameter.length * (e.clientY - rect.top) / canvas.height);
-        parameter[pointer] = parameter[pointer]+((e.clientX - rect.left - origPos) / canvas.width);
+        parameter[pointer] = parameter[pointer]-origPos+((e.clientX - rect.left) / canvas.width);
         if(pointer == timerPointer) timerChange = true;
         paramCalc();
       }
