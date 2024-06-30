@@ -107,7 +107,7 @@
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
       valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % Hue " + Math.floor(1/2+Hue)+ "°";
-      valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min. = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
+      valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
     }
 
     function flashing() {
@@ -154,7 +154,7 @@
       if(dispTimerSec < 0) dispTimerSec = 0;
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
-      valueString[timerPointer] = name[timerPointer]+" "+(dispTimerMin > 0 ? dispTimerMin + " min. " : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? dispTimerSec + " s" : "");
+      valueString[timerPointer] = name[timerPointer]+" "+(dispTimerMin > 0 ? dispTimerMin + " min " : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? dispTimerSec + " s" : "");
       for(i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
