@@ -223,13 +223,15 @@
 
     function drag(e) {
       if(!temp) return;
-      const rect = canvas.getBoundingClientRect();
-      parameter[pointer] = parameter[pointer]-origParameter+((e.type.includes("mouse") ? e.pageX : e.touches[0].clientX) - rect.left) / canvas.width;
-      if(parameter[pointer] < 0) parameter[pointer] = 0;
-      if(parameter[pointer] > 1) parameter[pointer] = 1;
-      origParameter = parameter[pointer];
-      if(pointer == timerPointer) timerChange = true;
-      paramCalc();
+      if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
+        const rect = canvas.getBoundingClientRect();
+        parameter[pointer] = parameter[pointer]-origParameter+((e.type.includes("mouse") ? e.pageX : e.touches[0].clientX) - rect.left) / canvas.width;
+        if(parameter[pointer] < 0) parameter[pointer] = 0;
+        if(parameter[pointer] > 1) parameter[pointer] = 1;
+        origParameter = parameter[pointer];
+        if(pointer == timerPointer) timerChange = true;
+        paramCalc();
+      }
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
       displayParameters();
