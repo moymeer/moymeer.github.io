@@ -54,6 +54,9 @@
     canvas.addEventListener('mousedown', dragFn);
     canvas.addEventListener('mousemove', drag);
     canvas.addEventListener('mouseup',   endFn);
+    canvas.addEventListener('touchstart', dragFn);
+    canvas.addEventListener('touchend',   endFn);
+    canvas.addEventListener('touchmove',  drag);
 
     let size; // font size
     window.onload   = resize;
