@@ -50,6 +50,8 @@
     let fadeTime    = 60000; // [ms] fade time before flashing ends
     let lastTime    = currentTime;
     let timerChange = true;
+    let dispTimerSec; // rounded to [s]
+    let dispTimerMin; // [min]
 
     canvas.addEventListener('onkeydown', press);
       
@@ -144,7 +146,15 @@
 
       ctx.fillStyle = rgb(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0);
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      valueString[timerPointer] = name[timerPointer]+" "+(value[timerPointer]>60000?Math.floor(value[timerPointer]/60000)+" min.":Math.floor(value[timerPointer]/1000)+" s");
+      now = new Date();
+      currentTime = now.getTime(); // [ms]
+      value[timerPointer] = value[timerPointer] - (currentTime - lastTime);
+      lastTime = currentTime;
+      dispTimerSec = Math.floor(value[timerPointer]/1000 + 0.5);
+      if(dispTimerSec < 0) dispTimerSec = 0;
+      dispTimerMin = Math.floor(dispTimerSec/60);
+      dispTimerSec = dispTimerSec - 60*dispTimerMin;
+      valueString[timerPointer] = name[timerPointer]+" "+(dispTimerMin > 0 ? dispTimerMin + " min. " : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? dispTimerSec + " s" : "");
       for(i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
