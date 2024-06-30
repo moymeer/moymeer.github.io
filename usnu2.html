@@ -197,7 +197,7 @@
       temp = true;
       const rect = canvas.getBoundingClientRect();
       pointer    = Math.floor(parameter.length * (e.clientY - rect.top) / canvas.height);
-      origPos    = e.clientX - rect.left;
+      origPos    = (e.clientX - rect.left) / canvas.width;
       drag(e);
     }
 
