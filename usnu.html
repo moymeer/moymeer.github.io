@@ -189,6 +189,9 @@
         ctx.fillText(valueString[i], txtHor, (i+txtVert)*(canvas.height / parameter.length), canvas.width-txtHor);
         ctx.fill();
       }
+      // dimming square
+      ctx.fillStyle = rgb((1-0.01*value[dimmingPointer])*colorRed*value[brightPointer]/255, (1-0.01*value[dimmingPointer])*colorGreen*value[brightPointer]/255, 0);
+      ctx.fillRect(ctx.measureText(valueString[dimmingPointer]).width + txtHor + 0.5 * size, (dimmingPointer+txtVert)*(canvas.height / parameter.length), 0.75*size, -0.75*size);
       ctx.beginPath();
       let redActive   = 1.618 * colorRed  *value[brightPointer]/255;
       let greenActive = 1.618 * colorGreen*value[brightPointer]/255;
