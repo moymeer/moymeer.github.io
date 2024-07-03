@@ -29,12 +29,12 @@
     let colorPointer   = 2;
     let freqPointer    = 3;
     let timerPointer   = 4;
-    let parameter      = [3/6,          2/6,    4/10,  24/36,       0/30];
+    let parameter      = [3/6,          2/6,    4/12,  24/36,       0/30];
     let value          = [];
     let valueString    = [];
-    let value_max      = [255,           80,     255,     36, 30*60*1000];
+    let value_max      = [255,           80, 511-102,     36, 30*60*1000];
     let value_min      = [ 63,           20,     102,      0,          0];
-    let levels         = [  6,            6,      10,     36,         30];
+    let levels         = [  6,            6,      12,     36,         30];
     let pointer        = parameter.length-1;
     let origPos;
     let colorRed;
@@ -105,12 +105,13 @@
       timerChange = false;
       period = periodBase * Math.pow(Math.pow(2, 1/12), value_max[freqPointer] - value[freqPointer]);
       frequency = 1000/period;
-      if(value[colorPointer]<128) colorRed = 255; else value[colorPointer]==255 ? colorRed = 0 : colorRed = 256-2*(value[colorPointer]-127);
-      if(value[colorPointer]<128) value[colorPointer]==0 ? colorGreen = 0 : colorGreen = 2*value[colorPointer]; else colorGreen = 255;
+      if(value[colorPointer]<255) colorRed = 255; else colorRed = 255-value[colorPointer];
+      if(value[colorPointer]>255) colorGreen = 255; else colorGreen = 255-value[colorPointer];
       if(colorRed > colorGreen) Hue = 60*colorGreen/colorRed; else Hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
-      valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % Hue " + Math.floor(1/2+Hue)+ "°";
+      valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % " +colorRed+" zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % "+ colorGreen + " Hue " + " Math.floor(1/2+Hue)+ "°";
+      //valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % Hue " + Math.floor(1/2+Hue)+ "°";
       valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
     }
 
