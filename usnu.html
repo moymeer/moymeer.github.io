@@ -105,8 +105,8 @@
       timerChange = false;
       period = periodBase * Math.pow(Math.pow(2, 1/12), value_max[freqPointer] - value[freqPointer]);
       frequency = 1000/period;
-      if(value[colorPointer]<255) colorRed = 255; else colorRed = 255-value[colorPointer];
-      if(value[colorPointer]>255) colorGreen = 255; else colorGreen = 255-value[colorPointer];
+      if(value[colorPointer]<=255) colorRed = 255; else colorRed = 510-value[colorPointer];
+      if(value[colorPointer]<=255) colorGreen = value[colorPointer]; else colorGreen = 255;
       if(colorRed > colorGreen) Hue = 60*colorGreen/colorRed; else Hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
