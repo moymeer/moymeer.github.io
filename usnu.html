@@ -32,8 +32,8 @@
     let parameter      = [4/6,          3/6,    3/12,  24/36,       0/30];
     let value          = [];
     let valueString    = [];
-    let value_max      = [255,           80, 510-102,     36, 30*60*1000];
-    let value_min      = [102,           20,     102,      0,          0];
+    let value_max      = [255,           80, 510-153,     36, 30*60*1000];
+    let value_min      = [102,           20,     153,      0,          0];
     let levels         = [  6,            6,      12,     36,         30];
     let pointer        = parameter.length-1;
     let origPos;
@@ -110,7 +110,7 @@
       if(colorRed > colorGreen) Hue = 60*colorGreen/colorRed; else Hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
-      //valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % G: "+ colorGreen + " Hue " + Math.floor(1/2+Hue)+ "°";
+      //valueString[colorPointer]  = "červená " + Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100)+" % G: "+ colorGreen + " Hue " + Math.floor(1/2+Hue)+ "°";
       valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % Hue " + Math.floor(1/2+Hue)+ "°";
       valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
     }
