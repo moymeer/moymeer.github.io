@@ -160,7 +160,7 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+" "+(dispTimerMin > 0 ? dispTimerMin + " min " : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? dispTimerSec + " s" : "");
-      if(value[timerPointer] <= 0) valueString[timerPointer] = valueString[timerPointer] + " na vlastní nebezpečí";
+      if(value[timerPointer] <= 0) valueString[timerPointer] = valueString[timerPointer] + " na vlastní riziko";
       for(i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
