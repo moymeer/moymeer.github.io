@@ -29,7 +29,7 @@
     let colorPointer   = 2;
     let freqPointer    = 3;
     let timerPointer   = 4;
-    let parameter      = [4/6,          3/6,    3/12,  24/36,       0/30];
+    let parameter      = [4/6,          2/6,    3/12,  24/36,       0/30];
     let value          = [];
     let valueString    = [];
     let value_max      = [255,           80, 510-153,     36, 30*60*1000];
@@ -160,7 +160,6 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+(dispTimerMin > 0 ? " " + dispTimerMin + " min" : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? " " + dispTimerSec + " s" : "");
-      valueString[timerPointer] = valueString[timerPointer] + " na vlastní riziko";
       for(i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
