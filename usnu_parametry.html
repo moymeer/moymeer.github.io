@@ -57,7 +57,7 @@
     // load parameters from URL: ?jas=1&kontrast=2&hue=3&puls=4
     var url = window.location.search;
     const urlParams = new URLSearchParams(url);
-    for(i = 0; i < parameter.length-1; i++){
+    for(let i = 0; i < parameter.length-1; i++){
       if(urlParams.has(name[i])){
         let val =  urlParams.get(name[i]);
         if(val >= 0 && val <= levels[i]){
@@ -105,7 +105,7 @@
     setInterval(flashing, 10); // repeatedly calls a function with a fixed time delay [ms] between each call
 
     function paramCalc() {
-      for(i = 0; i< parameter.length-(timerChange?0:1); i++){
+      for(let i = 0; i< parameter.length-(timerChange?0:1); i++){
         value[i]     = value_min[i] + Math.floor(parameter[i]*levels[i]+0.5) * (value_max[i] - value_min[i])/levels[i];
         if(value[i] < value_min[i]) value[i] = value_min[i];
         if(value[i] > value_max[i]) value[i] = value_max[i];
@@ -120,11 +120,11 @@
       }
       urlNew=urlNew+"?";
       var change = false;
-      for(i = 0; i < parameter.length-1; i++){
+      for(let i = 0; i < parameter.length-1; i++){
         if(lastParam[i] != parameter[i]) change = true;
       }
       if(change){
-        for(i = 0; i < parameter.length-1; i++){
+        for(let i = 0; i < parameter.length-1; i++){
           urlNew=urlNew+name[i]+"="+Math.floor(parameter[i] * levels[i]+1/2)+"&";
         }
         urlNew=urlNew.substr(0,urlNew.length-1);
@@ -195,7 +195,7 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+(dispTimerMin > 0 ? " " + dispTimerMin + " min" : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? " " + dispTimerSec + " s" : "");
-      for(i = 0; i< parameter.length; i++){
+      for(let i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
         ctx.lineWidth   = lineThickness;
@@ -204,7 +204,7 @@
         ctx.closePath();
         ctx.stroke();
 
-        for(j = 1; j < levels[i]; j++){ // dashes on line
+        for(let j = 1; j < levels[i]; j++){ // dashes on line
           ctx.beginPath();
           ctx.strokeStyle = rgb(0, 0, 0);
           ctx.lineWidth   = Math.floor(0.382*lineThickness);
