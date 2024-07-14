@@ -39,7 +39,6 @@
     let value_min      = [102,           20,     153,      0,          0];
     let levels         = [  6,            6,      12,     36,         30];
     let pointer        = parameter.length-1;
-    let origPos;
     let colorRed;
     let colorGreen;
     let Hue;
@@ -121,10 +120,10 @@
       }
       urlNew=urlNew+"?";
       var change = false;
-      for(i = 0; i<parameter.length-1; i++){
+      for(i = 0; i < parameter.length-1; i++){
         if(lastParam[i] != parameter[i]) change = true;
       }
-      if(change = true){
+      if(change){
         for(i = 0; i < parameter.length-1; i++){
           urlNew=urlNew+name[i]+"="+Math.floor(parameter[i] * levels[i]+1/2)+"&";
         }
@@ -326,6 +325,8 @@
         }
         paramCalc();
       }
+      event.preventDefault();
+      event.stopPropagation();
       now      = new Date();
       infoTime = menuTime + now.getTime(); // [ms]
       displayParameters();
