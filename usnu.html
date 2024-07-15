@@ -24,18 +24,18 @@
     let canvas         = document.getElementById("canvas");
     let ctx            = canvas.getContext("2d");
 
-    let name           = ["jas", "kontrast", "hue", "puls",     "doba"];
+    let name           = ["jas", "kontrast",   "hue", "puls",     "doba"];
     let brightPointer  = 0; // arrays pointers
     let dimmingPointer = 1;
     let colorPointer   = 2;
     let freqPointer    = 3;
     let timerPointer   = 4;
-    let parameter      = [4/6,          2/6,    3/12,  24/36,       0/30];
+    let parameter      = [4/6,          2/6,     2/6,  24/36,       0/30];
     let value          = [];
     let valueString    = [];
     let value_max      = [255,           80, 510-153,     36, 30*60*1000];
     let value_min      = [102,           20,     153,      0,          0];
-    let levels         = [  6,            6,      12,     36,         30];
+    let levels         = [  6,            6,       6,     36,         30];
     let pointer        = parameter.length-1;
     let origPos;
     let colorRed;
