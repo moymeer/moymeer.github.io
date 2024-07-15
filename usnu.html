@@ -42,19 +42,20 @@
     let colorRed;
     let colorGreen;
     let Hue;
-    let periodBase = 500; // [ms]
-    let period;           // [Hz]
+    let periodBase     = 500;           // [ms]
+    let period;                         // [Hz]
 
-    let now         = new Date();
-    let currentTime = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
-    let menuTime    = 2000;  // [ms] the time the menu is displayed on the screen
-    let infoTime    = currentTime + 50000; // show menu until, start screen for fifty seconds
-    let fadeTime    = 60000; // [ms] fade time before flashing ends
-    let lastTime    = currentTime;
-    let timerChange = true;
-    let dispTimerSec; // rounded to [s]
-    let dispTimerMin; // [min]
-    // load parameters from URL: ?jas=X&kontrast=X&hue=X&puls=X&pointer=X
+    let now            = new Date();
+    let currentTime    = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
+    let menuFirstTime  = 50000;         // [ms] the time the menu is first displayed
+    let menuTime       =  2000;         // [ms] the time the menu is displayed
+    let infoTime;                       // show menu until
+    let fadeTime       = 60000;         // [ms] fade time before flashing ends
+    let lastTime       = currentTime;
+    let timerChange    = true;
+    let dispTimerSec;                   // rounded to [s]
+    let dispTimerMin;                   // [min]
+    // load parameters from URL
     var url = window.location.search;
     const urlParams = new URLSearchParams(url);
     for(let i = 0; i < parameter.length-1; i++){
@@ -68,11 +69,12 @@
     }
     if(urlParams.has("parametr")){
       let val = 1*urlParams.get("parametr");
-      if(val >= 0 && val <= parameter.length-1){
+      if(val >= 0 && val < parameter.length){
         pointer = val;
         lastPointer = pointer;
       }
     }
+    if(parameter[timerPointer]==0) infoTime = menuFirstTime + currentTime; else infoTime = menuTime + currentTime;
 
     let circleBlackRadius;
 
@@ -272,8 +274,8 @@
         e.stopPropagation();
         temp = false;
       }
-      now      = new Date();
-      infoTime = menuTime + now.getTime(); // [ms]
+      now = new Date();
+      if(parameter[timerPointer]==0) infoTime = menuFirstTime + now.getTime(); else infoTime = menuTime + now.getTime();
       displayParameters();
     }
 
@@ -291,8 +293,8 @@
         e.preventDefault();
         e.stopPropagation();
       }      
-      now      = new Date();
-      infoTime = menuTime + now.getTime(); // [ms]
+      now = new Date();
+      if(parameter[timerPointer]==0) infoTime = menuFirstTime + now.getTime(); else infoTime = menuTime + now.getTime();
       displayParameters();
     }
 
@@ -336,8 +338,8 @@
       }
       event.preventDefault();
       event.stopPropagation();
-      now      = new Date();
-      infoTime = menuTime + now.getTime(); // [ms]
+      now = new Date();
+      if(parameter[timerPointer]==0) infoTime = menuFirstTime + now.getTime(); else infoTime = menuTime + now.getTime();
       displayParameters();
     }
 
