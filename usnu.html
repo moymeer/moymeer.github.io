@@ -54,7 +54,7 @@
     let timerChange = true;
     let dispTimerSec; // rounded to [s]
     let dispTimerMin; // [min]
-    // load parameters from URL: ?jas=1&kontrast=2&hue=3&puls=4
+    // load parameters from URL: ?jas=X&kontrast=X&hue=X&puls=X&pointer=X
     var url = window.location.search;
     const urlParams = new URLSearchParams(url);
     for(let i = 0; i < parameter.length-1; i++){
@@ -90,8 +90,8 @@
     window.onload   = resize;
     window.onresize = resize;
     function resize() { // set canvas size and font size
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight-4;
+      canvas.width  = window.innerWidth-1;
+      canvas.height = window.innerHeight-7;
 
       let maxSize   = Math.floor(canvas.height/(2*parameter.length)); // as double lines of text than parameters
       if(maxSize > 999) maxSize = 999;
