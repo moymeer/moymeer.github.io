@@ -66,8 +66,8 @@
         }
       }
     }
-    if(urlParams.has("pointer")){
-      let val = 1*urlParams.get("pointer");
+    if(urlParams.has("parametr")){
+      let val = 1*urlParams.get("parametr");
       if(val >= 0 && val <= parameter.length-1){
         pointer = val;
         lastPointer = pointer;
@@ -135,7 +135,7 @@
         for(let i = 0; i < parameter.length-1; i++){
           urlNew=urlNew+name[i]+"="+Math.floor(parameter[i] * levels[i]+1/2)+"&";
         }
-        urlNew=urlNew+"pointer="+Math.floor(pointer+1/2);
+        urlNew=urlNew+"parametr="+Math.floor(pointer+1/2);
         window.location = urlNew;
       }
 
