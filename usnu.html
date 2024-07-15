@@ -162,7 +162,7 @@
       if(colorRed > colorGreen) Hue = 60*colorGreen/colorRed; else Hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
-      valueString[dimmingPointer] = valueString[dimmingPointer]+" kontr. poměr "+Math.floor(1/2+100*contrast(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0, (1 - value[dimmingPointer]/100)*colorRed*value[brightPointer]/255, (1 - value[dimmingPointer]/100)*colorGreen*value[brightPointer]/255, 0))/100;
+      valueString[dimmingPointer] = valueString[dimmingPointer]+" poměr "+Math.floor(1/2+10*contrast(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0, (1 - value[dimmingPointer]/100)*colorRed*value[brightPointer]/255, (1 - value[dimmingPointer]/100)*colorGreen*value[brightPointer]/255, 0))/10;
       //valueString[colorPointer]  = "červená " + Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100)+" % G: "+ colorGreen + ", "+name[colorPointer]+" " + Math.floor(1/2+Hue)+ "°";
       valueString[colorPointer]  = "červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" % "+name[colorPointer]+" " + Math.floor(1/2+Hue)+ "°";
       valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
