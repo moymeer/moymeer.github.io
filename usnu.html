@@ -115,7 +115,7 @@
 
     function paramCalc() {
       for(let i = 0; i< parameter.length-(timerChange?0:1); i++){
-        value[i]     = value_min[i] + Math.floor(parameter[i]*levels[i]+0.5) * (value_max[i] - value_min[i])/levels[i];
+        value[i] = value_min[i] + Math.floor(parameter[i]*levels[i]+1/2) * (value_max[i] - value_min[i])/levels[i];
         if(value[i] < value_min[i]) value[i] = value_min[i];
         if(value[i] > value_max[i]) value[i] = value_max[i];
         parameter[i] = (value[i] - value_min[i]) / (value_max[i] - value_min[i]);
@@ -129,6 +129,13 @@
       }
       urlNew=urlNew+"?";
       var change = false;
+
+      if(pointer != parameter.length-1 && parameter[parameter.length-1] == 0 && currentTime > infoTime - menuFirstTime + menuTime){
+        // if pointer is not on time and time is zero for longer than menu time, pointer is moved to time
+        change  = true;
+        pointer = parameter.length-1;
+      }
+
       if(lastPointer != pointer) change = true;
       for(let i = 0; i < parameter.length-1; i++){
         if(lastParam[i] != parameter[i]) change = true;
@@ -179,7 +186,7 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         value[timerPointer]     = value[timerPointer] - (currentTime - lastTime);
         if(value[timerPointer] < 0) value[timerPointer] = 0;
-        parameter[timerPointer] = value[timerPointer]/(value_max[timerPointer] - value_min[timerPointer]);
+        parameter[timerPointer] = (value[timerPointer]- value_min[timerPointer])/(value_max[timerPointer] - value_min[timerPointer]);
    
         lastTime = currentTime;
       } else {
@@ -200,8 +207,10 @@
       now = new Date();
       currentTime = now.getTime(); // [ms]
       value[timerPointer] = value[timerPointer] - (currentTime - lastTime);
+      if(value[timerPointer] < 0) value[timerPointer] = 0;
+      parameter[timerPointer] = (value[timerPointer]- value_min[timerPointer])/(value_max[timerPointer] - value_min[timerPointer]);
       lastTime = currentTime;
-      dispTimerSec = Math.floor(value[timerPointer]/1000 + 0.5);
+      dispTimerSec = Math.floor(value[timerPointer]/1000 + 1/2);
       if(dispTimerSec < 0) dispTimerSec = 0;
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
