@@ -54,6 +54,7 @@
     let timerChange = true;
     let dispTimerSec; // rounded to [s]
     let dispTimerMin; // [min]
+    let wakeLock = null;
 
     // load parameters from URL:? jas=1&kontrast=2&hue=3&puls=4
     var url = window.location.search;
@@ -114,7 +115,12 @@
         parameter[i] = (value[i] - value_min[i]) / (value_max[i] - value_min[i]);
       }
       if(timerChange) {
-        navigator.wakeLock.request('screen').then(lock => {
+        if(wakeLock != null) {
+          wakeLock.release().then(() => {
+            wakeLock = null;
+          });
+        }
+        wakeLock = navigator.wakeLock.request('screen').then(lock => {
           setTimeout(() => lock.release(), value[timerPointer]);
         });
       }
@@ -145,6 +151,11 @@
         }
         if(value[timerPointer] <= 0) {
           fade = 0;
+          if(wakeLock != null) {
+            wakeLock.release().then(() => {
+              wakeLock = null;
+            });
+          }
         }
         ctx.fillStyle = rgb(fade*amplitude*colorRed*value[brightPointer]/255, fade*amplitude*colorGreen*value[brightPointer]/255, 0);
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -258,6 +269,11 @@
         if(parameter[pointer] < 0){
           parameter[pointer] = 0;
           if(pointer == timerPointer){
+            if(wakeLock != null) {
+              wakeLock.release().then(() => {
+                wakeLock = null;
+              });
+            }
             // inserts the parameters into the address bar and reload
             var urlNew="";
             if(url.lastIndexOf('?')>=0){
@@ -314,6 +330,11 @@
             if(parameter[pointer] < 0){
               parameter[pointer] = 0;
               if(pointer == timerPointer){
+                if(wakeLock != null) {
+                  wakeLock.release().then(() => {
+                    wakeLock = null;
+                  });
+                }
                 // inserts the parameters into the address bar and reload
                 var urlNew="";
                 if(url.lastIndexOf('?')>=0){
