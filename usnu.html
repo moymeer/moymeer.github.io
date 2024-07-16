@@ -255,7 +255,24 @@
       if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
         const rect = canvas.getBoundingClientRect();
         parameter[pointer] = parameter[pointer]-origParameter+((e.type.includes("mouse") ? e.pageX : e.touches[0].clientX) - rect.left-circleBlackRadius) / (canvas.width-2*circleBlackRadius);
-        if(parameter[pointer] < 0) parameter[pointer] = 0;
+        if(parameter[pointer] < 0){
+          parameter[pointer] = 0;
+          if(pointer == timerPointer){
+            // inserts the parameters into the address bar and reload
+            var urlNew="";
+            if(url.lastIndexOf('?')>=0){
+              urlNew=url.substr(0, url.lastIndexOf('?'));
+            } else {
+              urlNew=url;
+            }
+            urlNew=urlNew+"?";
+            for(let i = 0; i < parameter.length-1; i++){
+              urlNew=urlNew+name[i]+"="+Math.floor(parameter[i] * levels[i]+1/2)+"&";
+            }
+            urlNew=urlNew.substr(0, urlNew.length-1);
+            window.location = urlNew;
+          }
+        }
         if(parameter[pointer] > 1) parameter[pointer] = 1;
         origParameter = parameter[pointer];
         if(pointer == timerPointer) timerChange = true;
@@ -294,7 +311,24 @@
           case "S":
           case "s":
             parameter[pointer] = parameter[pointer]-1/levels[pointer];
-            if(parameter[pointer] < 0) parameter[pointer] = 0;
+            if(parameter[pointer] < 0){
+              parameter[pointer] = 0;
+              if(pointer == timerPointer){
+                // inserts the parameters into the address bar and reload
+                var urlNew="";
+                if(url.lastIndexOf('?')>=0){
+                  urlNew=url.substr(0, url.lastIndexOf('?'));
+                } else {
+                  urlNew=url;
+                }
+                urlNew=urlNew+"?";
+                for(let i = 0; i < parameter.length-1; i++){
+                  urlNew=urlNew+name[i]+"="+Math.floor(parameter[i] * levels[i]+1/2)+"&";
+                }
+                urlNew=urlNew.substr(0, urlNew.length-1);
+                window.location = urlNew;
+              }
+            }
             if(pointer == timerPointer) timerChange = true;
             break;
           case "ArrowRight":
