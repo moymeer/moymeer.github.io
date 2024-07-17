@@ -21,7 +21,7 @@
 <body>
   <canvas id="canvas"></canvas>
   <script type="text/javascript"><!--
-    let   myLock;
+    let   lock;
     let   canvas         = document.getElementById("canvas");
     let   ctx            = canvas.getContext("2d");
 
@@ -115,6 +115,12 @@
         parameter[i] = (value[i] - value_min[i]) / (value_max[i] - value_min[i]);
       }
       if(timerChange) {
+        if(typeof lock !== "undeinfed" && lock != null) {
+          lock.release()
+          .then(() => {
+            lock = null;
+           });
+        }
         // lock the screen for a defined time
         myLock = navigator.wakeLock.request('screen').then(lock => {
           setTimeout(() => lock.release(), value[timerPointer]);
