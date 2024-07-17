@@ -21,6 +21,7 @@
 <body>
   <canvas id="canvas"></canvas>
   <script type="text/javascript"><!--
+    let   wakeLock;
     let   canvas         = document.getElementById("canvas");
     let   ctx            = canvas.getContext("2d");
     const name           = ["jas", "kontrast",   "hue", "puls",     "doba"];
@@ -112,9 +113,15 @@
         if(value[i] > value_max[i]) value[i] = value_max[i];
         parameter[i] = (value[i] - value_min[i]) / (value_max[i] - value_min[i]);
       }
+
       if(timerChange) {
+        // unlocks the screen if it is locked
+        if(typeof wakeLock !== "undeinfed" && wakeLock != null) {
+          wakeLock.release();
+          wakeLock = null;
+        }
         wakeLock.release();
-        // lock the screen for a defined time
+        // locks the screen for a defined time
         navigator.wakeLock.request('screen').then(lock => {
           setTimeout(() => lock.release(), value[timerPointer]);
         });
