@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>usnu</title>
-    <style>
-      html, body {
-        width:  100%;
-        height: 100%;
-        margin: 0;
-      }
-      body {
-        background-color: #000000;
-        padding: 0px 0px 0px 0px;
-        margin: 0px 0px 0px 0px;
-      }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>usnu</title>
+  <style>
+    html, body {
+      width:  100%;
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background-color: #000000;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
+    }
+  </style>
 </head>
 
 <body>
   <canvas id="canvas"></canvas>
   <script type="text/javascript"><!--
-    let canvas         = document.getElementById("canvas");
-    let ctx            = canvas.getContext("2d");
+    let   canvas         = document.getElementById("canvas");
+    let   ctx            = canvas.getContext("2d");
 
-    let name           = ["jas", "kontrast",   "hue", "puls",     "doba"];
-    let brightPointer  = 0; // arrays pointers
-    let dimmingPointer = 1;
-    let colorPointer   = 2;
-    let freqPointer    = 3;
-    let timerPointer   = 4;
-    let parameter      = [4/6,          2/6,     2/6,  24/36,       0/30];
-    let value          = [];
-    let valueString    = [];
-    let value_max      = [255,           80, 510-153,     36, 30*60*1000];
-    let value_min      = [102,           20,     153,      0,          0];
-    let levels         = [  6,            6,       6,     36,         30];
-    let pointer        = parameter.length-1;
-    let origPos;
-    let colorRed;
-    let colorGreen;
-    let Hue;
-    let periodBase = 500; // [ms]
-    let period;           // [Hz]
+    const name           = ["jas", "kontrast",   "hue", "puls",     "doba"];
+    const brightPointer  = 0; // arrays pointers
+    const dimmingPointer = 1;
+    const colorPointer   = 2;
+    const freqPointer    = 3;
+    const timerPointer   = 4;
+    let   parameter      = [4/6,          2/6,     2/6,  24/36,       0/30];
+    let   value          = [];
+    let   valueString    = [];
+    const value_max      = [255,           80, 510-153,     36, 30*60*1000];
+    const value_min      = [102,           20,     153,      0,          0];
+    const levels         = [  6,            6,       6,     36,         30];
+    let   pointer        = parameter.length-1;
+    let   origParameter;
+    let   colorRed;
+    let   colorGreen;
+    let   hue;
+    const periodBase = 500; // [ms]
+    let   period;           // [Hz]
 
-    let now         = new Date();
-    let currentTime = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
-    let menuTimer   =  2000;  // [ms] the time the menu is displayed when timer is set
-    let menuNoTimer = 50000;  // [ms] the time the menu is displayed when no timer is set
-    let infoTime;             // show menu until
-    let fadeTime    = 60000; // [ms] fade time before flashing ends
-    let lastTime    = currentTime;
-    let timerChange = true;
-    let dispTimerSec; // rounded to [s]
-    let dispTimerMin; // [min]
+    let   now         = new Date();
+    let   currentTime = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
+    const menuTimer   =  2000;  // [ms] the time the menu is displayed when timer is set
+    const menuNoTimer = 50000;  // [ms] the time the menu is displayed when no timer is set
+    let   infoTime;             // show menu until
+    const fadeTime    = 60000; // [ms] fade time before flashing ends
+    let   lastTime    = currentTime;
+    let   timerChange = true;
+    let   dispTimerSec; // rounded to [s]
+    let   dispTimerMin; // [min]
 
     // load parameters from URL:? jas=1&kontrast=2&hue=3&puls=4
-    var url = window.location.search;
+    let url = window.location.search;
     const urlParams = new URLSearchParams(url);
     for(let i = 0; i < parameter.length-1; i++){
       if(urlParams.has(name[i])){
@@ -107,7 +107,7 @@
     setInterval(flashing, 10); // repeatedly calls a function with a fixed time delay [ms] between each call
 
     function paramCalc() {
-      for(i = 0; i< parameter.length-(timerChange?0:1); i++){
+      for(let i = 0; i< parameter.length-(timerChange?0:1); i++){
         value[i]     = value_min[i] + Math.floor(parameter[i]*levels[i]+0.5) * (value_max[i] - value_min[i])/levels[i];
         if(value[i] < value_min[i]) value[i] = value_min[i];
         if(value[i] > value_max[i]) value[i] = value_max[i];
@@ -120,15 +120,14 @@
       }
       timerChange = false;
       period = periodBase * Math.pow(Math.pow(2, 1/12), value_max[freqPointer] - value[freqPointer]);
-      frequency = 1000/period;
       if(value[colorPointer]<=255) colorRed = 255; else colorRed = 510-value[colorPointer];
       if(value[colorPointer]<=255) colorGreen = value[colorPointer]; else colorGreen = 255;
-      if(colorRed > colorGreen) Hue = 60*colorGreen/colorRed; else Hue = 120-60*colorRed/colorGreen;
+      if(colorRed > colorGreen) hue = 60*colorGreen/colorRed; else hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
       valueString[dimmingPointer]+= " poměr "+Math.floor(1/2+10*contrast(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0, (1 - value[dimmingPointer]/100)*colorRed*value[brightPointer]/255, (1 - value[dimmingPointer]/100)*colorGreen*value[brightPointer]/255, 0))/10;
-      //valueString[colorPointer]  = "červená " + Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100)+" % G: "+ colorGreen + ", "+name[colorPointer]+" " + Math.floor(1/2+Hue)+ "°";
-      valueString[colorPointer]  = name[colorPointer]+" " + Math.floor(1/2+Hue)+ "° červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" %";
+      //valueString[colorPointer]  = "červená " + Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100)+" % G: "+ colorGreen + ", "+name[colorPointer]+" " + Math.floor(1/2+hue)+ "°";
+      valueString[colorPointer]  = name[colorPointer]+" " + Math.floor(1/2+hue)+ "° červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" %";
       valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
     }
 
@@ -177,7 +176,7 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+(dispTimerMin > 0 ? " " + dispTimerMin + " min" : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? " " + dispTimerSec + " s" : "");
-      for(i = 0; i< parameter.length; i++){
+      for(let i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
         ctx.lineWidth   = lineThickness;
@@ -186,7 +185,7 @@
         ctx.closePath();
         ctx.stroke();
 
-        for(j = 1; j < levels[i]; j++){ // dashes on line
+        for(let j = 1; j < levels[i]; j++){ // dashes on line
           ctx.beginPath();
           ctx.strokeStyle = rgb(0, 0, 0);
           ctx.lineWidth   = Math.floor(0.382*lineThickness);
@@ -259,7 +258,7 @@
           parameter[pointer] = 0;
           if(pointer == timerPointer){
             // inserts the parameters into the address bar and reload
-            var urlNew="";
+            let urlNew="";
             if(url.lastIndexOf('?')>=0){
               urlNew=url.substr(0, url.lastIndexOf('?'));
             } else {
@@ -315,7 +314,7 @@
               parameter[pointer] = 0;
               if(pointer == timerPointer){
                 // inserts the parameters into the address bar and reload
-                var urlNew="";
+                let urlNew="";
                 if(url.lastIndexOf('?')>=0){
                   urlNew=url.substr(0, url.lastIndexOf('?'));
                 } else {
@@ -347,7 +346,7 @@
     }
 
     function rgb(r, g, b){
-      var hex = "0123456789abcdef";
+      const hex = "0123456789abcdef";
       return "#"+
       hex.substring(Math.floor(r/16), Math.floor(r/16)+1)+
       hex.substring(Math.floor(r%16), Math.floor(r%16)+1)+
@@ -358,13 +357,13 @@
     }
 
     function contrast(r8bit1, g8bit1, b8bit1, r8bit2, g8bit2, b8bit2){
-      var Rs1 = Math.floor(r8bit1)/255;
-      var Gs1 = Math.floor(g8bit1)/255;
-      var Bs1 = Math.floor(b8bit1)/255;
-      var Rs2 = Math.floor(r8bit2)/255;
-      var Gs2 = Math.floor(g8bit2)/255;
-      var Bs2 = Math.floor(b8bit2)/255;
-      var R1, G1, B1, R2, G2, B2, L1, L2;
+      const Rs1 = Math.floor(r8bit1)/255;
+      const Gs1 = Math.floor(g8bit1)/255;
+      const Bs1 = Math.floor(b8bit1)/255;
+      const Rs2 = Math.floor(r8bit2)/255;
+      const Gs2 = Math.floor(g8bit2)/255;
+      const Bs2 = Math.floor(b8bit2)/255;
+      let   R1, G1, B1, R2, G2, B2, L1, L2;
       if(Rs1 <= 0.0405) R1=Rs1/12.92; else R1=Math.pow((Rs1+0.055)/1.055, 12/5);
       if(Gs1 <= 0.0405) G1=Gs1/12.92; else G1=Math.pow((Gs1+0.055)/1.055, 12/5);
       if(Bs1 <= 0.0405) B1=Bs1/12.92; else B1=Math.pow((Bs1+0.055)/1.055, 12/5);
