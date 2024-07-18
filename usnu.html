@@ -143,7 +143,7 @@
       if(colorRed > colorGreen) hue = 60*colorGreen/colorRed; else hue = 120-60*colorRed/colorGreen;
       valueString[brightPointer] = name[brightPointer]+" "+Math.floor(1/2+100*value[brightPointer]/255)+" %";
       valueString[dimmingPointer] = name[dimmingPointer]+" "+Math.floor(1/2+value[dimmingPointer])+" %";
-      valueString[dimmingPointer]+= " poměr "+Math.floor(1/2+10*contrast(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0, (1 - value[dimmingPointer]/100)*colorRed*value[brightPointer]/255, (1 - value[dimmingPointer]/100)*colorGreen*value[brightPointer]/255, 0))/10;
+      valueString[dimmingPointer]+= "  poměr "+Math.floor(1/2+10*contrast(colorRed*value[brightPointer]/255, colorGreen*value[brightPointer]/255, 0, (1 - value[dimmingPointer]/100)*colorRed*value[brightPointer]/255, (1 - value[dimmingPointer]/100)*colorGreen*value[brightPointer]/255, 0))/10;
       //valueString[colorPointer]  = "červená " + Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100+" % R: " +colorRed+", zelená "+(100-Math.floor(1/2+10000*colorRed/(colorGreen+colorRed))/100)+" % G: "+ colorGreen + ", "+name[colorPointer]+" " + Math.floor(1/2+hue)+ "°";
       valueString[colorPointer]  = name[colorPointer]+" " + Math.floor(1/2+hue)+ "° červená "+Math.floor(1/2+100*colorRed/(colorGreen+colorRed))+" % + zelená "+(100-Math.floor(1/2+100*colorRed/(colorGreen+colorRed)))+" %";
       valueString[freqPointer] = name[freqPointer]+" "+Math.floor(1/2+60000/period)+"/min = "+Math.floor(1/2+100000/period)/100 + " Hz = 1/"+Math.floor(period/10+0.5)/100+" s";
@@ -189,8 +189,8 @@
     }
     function displayParameters() {
       let txtHor            = Math.floor(size*6/10); // horizontal position of the text on the left
-      let txtVert           = 3/8;                   // vertical position of the text from the top
-      let lineVert          = 5/8;                   // vertical position of the line from the top
+      let txtVert           = 15/32;                 // vertical position of the text from the top
+      let lineVert          = 23/32;                 // vertical position of the line from the top
       let lineThickness     = Math.floor(size/10);
           circleBlackRadius = Math.floor(size/3);
       let circleColorRadius = Math.floor(circleBlackRadius*2/3);
@@ -206,6 +206,7 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+(dispTimerMin > 0 ? " " + dispTimerMin + " min" : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? " " + dispTimerSec + " s" : "");
+      valueString[timerPointer]+= dispTimerSec == 0 && dispTimerMin == 0 ? "   <= adresa / spustit =>" :"";
       for(let i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
@@ -218,7 +219,7 @@
         for(let j = 1; j < levels[i]; j++){ // dashes on line
           ctx.beginPath();
           ctx.strokeStyle = rgb(0, 0, 0);
-          ctx.lineWidth   = Math.floor(0.382*lineThickness);
+          ctx.lineWidth   = Math.floor(3/8*lineThickness);
           if(ctx.lineWidth < 1) ctx.lineWidth = 1;
           ctx.moveTo(circleBlackRadius+j*(canvas.width-2*circleBlackRadius)/levels[i], (i+lineVert)*(canvas.height / parameter.length)-(i==freqPointer && j%12==0?4:2)*lineThickness);
           ctx.lineTo(circleBlackRadius+j*(canvas.width-2*circleBlackRadius)/levels[i], (i+lineVert)*(canvas.height / parameter.length)+(i==freqPointer && j%12==0?4:2)*lineThickness);
