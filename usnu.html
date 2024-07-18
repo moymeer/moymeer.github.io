@@ -53,11 +53,31 @@
     let   timerChange = true;
     let   dispTimerSec; // rounded to [s]
     let   dispTimerMin; // [min]
+    let   IsLockUntested    = true;  // screen lock handling
+    let   IsReleaseUntested = false; // screen unlock handling
 
-    let untestedOn  = true;  // screen lock handling
-    let untestedOff = false; // screen lock handling
+    const canWakeLock = () => 'wakeLock' in navigator;
 
-    // load parameters from URL:? jas=1&kontrast=2&hue=3&puls=4
+    let wakelock;
+    async function lockWakeState() {
+      if(!canWakeLock()) return;
+        try {
+          wakelock = await navigator.wakeLock.request();
+          wakelock.addEventListener('release', () => {
+            console.log('Screen Wake State Locked:', !wakelock.released);
+        });
+        console.log('Screen Wake State Locked:', !wakelock.released);
+      } catch(e) {
+        console.error('Failed to lock wake state with reason:', e.message);
+      }
+    }
+
+    function releaseWakeState() {
+      if(wakelock) wakelock.release();
+      wakelock = null;
+    }
+
+    // load parameters from URL
     let url = window.location.search;
     const urlParams = new URLSearchParams(url);
     for(let i = 0; i < parameter.length-1; i++){
@@ -87,8 +107,8 @@
     window.onload   = resize;
     window.onresize = resize;
     function resize() { // set canvas size and font size
-      canvas.width  = window.innerWidth-1;
-      canvas.height = window.innerHeight-7;
+      canvas.width  = window.innerWidth-2;
+      canvas.height = window.innerHeight-8;
 
       let maxSize   = Math.floor(canvas.height/(2*parameter.length)); // as double lines of text than parameters
       if(maxSize > 999) maxSize = 999;
@@ -115,11 +135,7 @@
         if(value[i] > value_max[i]) value[i] = value_max[i];
         parameter[i] = (value[i] - value_min[i]) / (value_max[i] - value_min[i]);
       }
-      if(timerChange) {
-        navigator.wakeLock.request('screen').then(lock => {
-          setTimeout(() => lock.release(), value[timerPointer]);
-        });
-      }
+
       timerChange = false;
       period = periodBase * Math.pow(Math.pow(2, 1/12), value_max[freqPointer] - value[freqPointer]);
       if(value[colorPointer]<=255) colorRed = 255; else colorRed = 510-value[colorPointer];
@@ -146,22 +162,16 @@
         }
         if(value[timerPointer] <= 0) {
           fade = 0;
-          if(untestedOff) {
-            try {
-              wakeLock.release().then(() => wakeLock = null); // screen lock allowed 
-            } catch (error) {
-            }
-            untestedOff = false;
-            untestedOn  = true;
+          if(IsReleaseUntested) {
+            releaseWakeState();
+            IsReleaseUntested = false;
+            IsLockUntested    = true;
           }
         } else {
-          if(untestedOn) {
-            try {
-              navigator.wakeLock.request('screen'); // screen lock denied 
-            } catch (error) {
-            }
-            untestedOn  = false;
-            untestedOff = true;
+          if(IsLockUntested) {
+            lockWakeState();
+            IsLockUntested    = false;
+            IsReleaseUntested = true;
           }
         }
 
