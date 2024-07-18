@@ -40,15 +40,15 @@
     let   colorRed;
     let   colorGreen;
     let   hue;
-    const periodBase = 500; // [ms]
-    let   period;           // [Hz]
+    const periodBase =    500; // [ms]
+    let   period;              // [ms]
 
     let   now         = new Date();
     let   currentTime = now.getTime(); // getTime() gives number of miliseconds from 1.1.1970
     const menuTimer   =  2000;  // [ms] the time the menu is displayed when timer is set
     const menuNoTimer = 50000;  // [ms] the time the menu is displayed when no timer is set
     let   infoTime;             // show menu until
-    const fadeTime    = 60000; // [ms] fade time before flashing ends
+    const fadeTime    = 60000;  // [ms] fade time before flashing ends
     let   lastTime    = currentTime;
     let   timerChange = true;
     let   dispTimerSec; // rounded to [s]
