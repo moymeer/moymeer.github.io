@@ -395,12 +395,12 @@
       const Gs2 = Math.floor(g8bit2)/255;
       const Bs2 = Math.floor(b8bit2)/255;
       let   R1, G1, B1, R2, G2, B2, L1, L2;
-      if(Rs1 <= 0.0405) R1=Rs1/12.92; else R1=Math.pow((Rs1+0.055)/1.055, 12/5);
-      if(Gs1 <= 0.0405) G1=Gs1/12.92; else G1=Math.pow((Gs1+0.055)/1.055, 12/5);
-      if(Bs1 <= 0.0405) B1=Bs1/12.92; else B1=Math.pow((Bs1+0.055)/1.055, 12/5);
-      if(Rs2 <= 0.0405) R2=Rs2/12.92; else R2=Math.pow((Rs2+0.055)/1.055, 12/5);
-      if(Gs2 <= 0.0405) G2=Gs2/12.92; else G2=Math.pow((Gs2+0.055)/1.055, 12/5);
-      if(Bs2 <= 0.0405) B2=Bs2/12.92; else B2=Math.pow((Bs2+0.055)/1.055, 12/5);
+      if(Rs1 <= 0.04045) R1=Rs1/12.92; else R1=Math.pow((Rs1+0.055)/1.055, 12/5);
+      if(Gs1 <= 0.04045) G1=Gs1/12.92; else G1=Math.pow((Gs1+0.055)/1.055, 12/5);
+      if(Bs1 <= 0.04045) B1=Bs1/12.92; else B1=Math.pow((Bs1+0.055)/1.055, 12/5);
+      if(Rs2 <= 0.04045) R2=Rs2/12.92; else R2=Math.pow((Rs2+0.055)/1.055, 12/5);
+      if(Gs2 <= 0.04045) G2=Gs2/12.92; else G2=Math.pow((Gs2+0.055)/1.055, 12/5);
+      if(Bs2 <= 0.04045) B2=Bs2/12.92; else B2=Math.pow((Bs2+0.055)/1.055, 12/5);
       L1 = 0.2126*R1+0.7152*G1+0.0722*B1;
       L2 = 0.2126*R2+0.7152*G2+0.0722*B2;
       return (L1+0.05)/(L2+0.05);
