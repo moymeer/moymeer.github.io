@@ -206,7 +206,7 @@
       dispTimerMin = Math.floor(dispTimerSec/60);
       dispTimerSec = dispTimerSec - 60*dispTimerMin;
       valueString[timerPointer] = name[timerPointer]+(dispTimerMin > 0 ? " " + dispTimerMin + " min" : "")+(dispTimerSec > 0 || dispTimerMin == 0 ? " " + dispTimerSec + " s" : "");
-      valueString[timerPointer]+= dispTimerSec == 0 && dispTimerMin == 0 ? "   &larr; adresa / spustit &rarr;" :"";
+      valueString[timerPointer]+= dispTimerSec == 0 && dispTimerMin == 0 ? "   ← adresa / spustit →" :"";
       for(let i = 0; i< parameter.length; i++){
         ctx.beginPath();
         ctx.strokeStyle = rgb(0, 0, 0);
