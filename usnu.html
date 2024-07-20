@@ -323,8 +323,13 @@
     document.onkeydown = press;
 
     function press () {
-      if(currentTime < infoTime){ // after clicking when the menu is not displayed, only the menu will be displayed
+      if(currentTime < infoTime || event.key == " ") { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar is pressed
         switch(event.key){
+          case " ":
+            pointer = timerPointer;
+            parameter[timerPointer] = 0;
+            timerChange = true;
+            break;
           case "ArrowDown":
           case "D":
           case "d":
