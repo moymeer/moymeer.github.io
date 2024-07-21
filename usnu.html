@@ -22,7 +22,7 @@
   <canvas id="canvas"></canvas>
   <script><!--
     let   canvas         = document.getElementById("canvas");
-    let   ctx            = canvas.getContext("2d");
+    let   ctx            = canvas.getContext("2d", { alpha: false });
     const name           = ["jas", "kontrast",   "hue", "puls",     "doba"];
     const brightPointer  = 0; // arrays pointers
     const dimmingPointer = 1;
