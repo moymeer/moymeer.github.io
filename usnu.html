@@ -125,8 +125,8 @@
     }
 
     paramCalc();
+    let flashingInterval = null;
     displayParameters();
-    setInterval(flashing, 10); // repeatedly calls a function with a fixed time delay [ms] between each call
 
     function paramCalc() {
       for(let i = 0; i< parameter.length-(timerChange?0:1); i++){
@@ -162,6 +162,8 @@
         }
         if(value[timerPointer] <= 0) {
           fade = 0;
+          clearInterval(flashingInterval);
+          flashingInterval = null;
           if(IsReleaseUntested) {
             releaseWakeState();
             IsReleaseUntested = false;
@@ -188,6 +190,7 @@
       }
     }
     function displayParameters() {
+      if(flashingInterval == null) flashingInterval = setInterval(flashing, 10);
       let txtHor            = Math.floor(size*6/10); // horizontal position of the text on the left
       let txtVert           = 15/32;                 // vertical position of the text from the top
       let lineVert          = 23/32;                 // vertical position of the line from the top
