@@ -326,10 +326,12 @@
     document.onkeydown = press;
 
     function press () {
-      if(currentTime < infoTime || event.key == " " || event.key == "Escape") { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar is pressed
+      if(currentTime < infoTime || event.key == " " || event.key == "Escape" || event.key == "A" || event.key == "a") { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar, esc, a or A is pressed
         switch(event.key){
           case " ":
           case "Escape":
+          case "A":
+          case "a":
             pointer = timerPointer;
             parameter[timerPointer] = 0;
             timerChange = true;
