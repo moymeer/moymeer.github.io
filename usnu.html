@@ -326,16 +326,8 @@
     document.onkeydown = press;
 
     function press () {
-      if(currentTime < infoTime || event.key == " " || event.key == "Escape" || event.key == "A" || event.key == "a") { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar, esc, a or A is pressed
+      if(currentTime < infoTime  || (event.key != "ArrowDown" && event.key != "D" && event.key != "d" && event.key != "ArrowUp" && event.key != "E" && event.key != "e" && event.key != "ArrowLeft" && event.key != "S" && event.key != "s" && event.key != "ArrowRight" && event.key != "F" && event.key != "f")) { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar, esc, a or A is pressed
         switch(event.key){
-          case " ":
-          case "Escape":
-          case "A":
-          case "a":
-            pointer = timerPointer;
-            parameter[timerPointer] = 0;
-            timerChange = true;
-            break;
           case "ArrowDown":
           case "D":
           case "d":
@@ -379,6 +371,12 @@
             if(parameter[pointer] > 1) parameter[pointer] = 1;
             if(pointer == timerPointer) timerChange = true;
             break;
+          case "F11":
+            break;
+          default:
+            pointer = timerPointer;
+            parameter[timerPointer] = 0;
+            timerChange = true;
         }
         paramCalc();
       }
