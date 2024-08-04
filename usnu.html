@@ -326,23 +326,23 @@
     document.onkeydown = press;
 
     function press () {
-      if(currentTime < infoTime  || (event.key != "ArrowDown" && event.key != "D" && event.key != "d" && event.key != "ArrowUp" && event.key != "E" && event.key != "e" && event.key != "ArrowLeft" && event.key != "S" && event.key != "s" && event.key != "ArrowRight" && event.key != "F" && event.key != "f")) { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar, esc, a or A is pressed
+      if(currentTime < infoTime  || (event.key != "ArrowDown" && event.key != "S" && event.key != "s" && event.key != "ArrowUp" && event.key != "W" && event.key != "w" && event.key != "ArrowLeft" && event.key != "A" && event.key != "a" && event.key != "ArrowRight" && event.key != "D" && event.key != "d")) { // after clicking when the menu is not displayed, only the menu will be displayed and stops flashing if spacebar, esc, a or A is pressed
         switch(event.key){
           case "ArrowDown":
-          case "D":
-          case "d":
+          case "S":
+          case "s":
             pointer = pointer+1;
             if(pointer > parameter.length - 1) pointer = parameter.length - 1;
             break;
           case "ArrowUp":
-          case "E":
-          case "e":
+          case "W":
+          case "w":
             pointer = pointer-1;
             if(pointer < 0) pointer = 0;
             break;
           case "ArrowLeft":
-          case "S":
-          case "s":
+          case "A":
+          case "a":
             parameter[pointer] = parameter[pointer]-1/levels[pointer];
             if(parameter[pointer] < 0){
               parameter[pointer] = 0;
@@ -365,8 +365,8 @@
             if(pointer == timerPointer) timerChange = true;
             break;
           case "ArrowRight":
-          case "F":
-          case "f":
+          case "D":
+          case "d":
             parameter[pointer] = parameter[pointer]+1/levels[pointer];
             if(parameter[pointer] > 1) parameter[pointer] = 1;
             if(pointer == timerPointer) timerChange = true;
