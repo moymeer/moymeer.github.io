@@ -225,7 +225,7 @@
           ctx.lineWidth   = Math.floor(3/8*lineThickness);
           if(ctx.lineWidth < 1) ctx.lineWidth = 1;
           ctx.moveTo(Math.floor(circleBlackRadius+j*(canvas.width-2*circleBlackRadius)/levels[i]), Math.floor((i+lineVert)*(canvas.height / parameter.length)-(i==freqPointer && j%12==0?4:2)*lineThickness));
-          ctx.lineTo(Math.floor(circleBlackRadius+j*(canvas.width-2*circleBlackRadius)/levels[i]), Math.floor((i+lineVert)*(canvas.height / parameter.length)+(i==freqPointer && j%12==0?4:2)*lineThickness));
+          ctx.lineTo(Math.floor(circleBlackRadius+j*(canvas.width-2*circleBlackRadius)/levels[i]), Math.floor((i+lineVert)*(canvas.height / parameter.length)));//+(i==freqPointer && j%12==0?4:2)*lineThickness));
           ctx.closePath();
           ctx.stroke();
         }
